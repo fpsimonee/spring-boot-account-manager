@@ -7,6 +7,20 @@
 # BlueJ files
 *.ctxt
 
+# Maven
+target/
+
+# IntelliJ project files
+*.iml
+*.iws
+*.ipr
+.idea/
+
+# eclipse project file
+.settings/
+.classpath
+.project
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
@@ -23,5 +37,5 @@
 hs_err_pid*
 
 
-#docker mongodb data diagnostics
-.data/diagnostic.data/
+#docker mongodb data ignore
+data/
