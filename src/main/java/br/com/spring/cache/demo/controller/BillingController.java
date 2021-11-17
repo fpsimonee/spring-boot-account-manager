@@ -41,4 +41,10 @@ public class BillingController {
         billingService.deleteBillingById(id);
         return "ok";
     }
+    
+    @PostMapping("/insert")
+    public Billing insertBilling(@RequestBody Billing billing) throws PostNotFoundException, IOException {
+        return billingService.insertBilling(billing);
+    }
+    
 }
