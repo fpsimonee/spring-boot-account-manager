@@ -30,8 +30,7 @@ public class BillingController {
     @Cacheable(value = "billing-single", key = "#id")
     @GetMapping("/{id}")
     public Billing getPostById(@PathVariable String id) throws PostNotFoundException, IOException {
-        log.info("search for post id: "+id);
-//        log.info(billingService.findBillingById(id));
+        log.info("search for post id: " + id);
 
         return billingService.findBillingById(id);
     }
@@ -40,6 +39,16 @@ public class BillingController {
     public String deleteById(@PathVariable String id) throws PostNotFoundException, IOException{
         billingService.deleteBillingById(id);
         return "ok";
+    }
+
+    @PatchMapping("/{id}")
+    public Billing update(@PathVariable String id, @RequestBody Billing billing) throws PostNotFoundException, IOException{
+        return billingService.update(id, billing);
+    }
+
+    @PostMapping()
+    public List<Billing> insertBillings(@RequestBody List<Billing> billing) throws PostNotFoundException, IOException {
+        return billingService.insertAll(billing);
     }
     
     @PostMapping("/insert")
