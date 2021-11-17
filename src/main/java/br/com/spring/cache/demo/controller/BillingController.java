@@ -37,7 +37,6 @@ public class BillingController {
             throw new BillingNotFoundException("Billings not Found in database");
     }
 
-
     @GetMapping(value = "/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
     @CachePut(value = "body", key = "#id")
     public CustomResponseEntity<Billing> getPostById(@PathVariable String id) throws BillingNotFoundException {
@@ -71,4 +70,20 @@ public class BillingController {
         }else
             throw new  BillingNotFoundException("Billings could't insert on databse");
     }
+
+    @PatchMapping("/{id}")
+    public Billing update(@PathVariable String id, @RequestBody Billing billing) throws PostNotFoundException, IOException{
+        return billingService.update(id, billing);
+    }
+
+    @PostMapping()
+    public List<Billing> insertBillings(@RequestBody List<Billing> billing) throws PostNotFoundException, IOException {
+        return billingService.insertAll(billing);
+    }
+    
+    @PostMapping("/insert")
+    public Billing insertBilling(@RequestBody Billing billing) throws PostNotFoundException, IOException {
+        return billingService.insertBilling(billing);
+    }
+    
 }

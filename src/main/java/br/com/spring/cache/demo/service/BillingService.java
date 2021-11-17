@@ -27,8 +27,21 @@ public class BillingService {
        billigRepo.deleteById(id);
     }
 
+
     public Billing insertBilling(Billing billing) throws BillingNotFoundException {
         return billigRepo.save(billing);
+    }
+  
+    public Billing update(String id, Billing billing) throws PostNotFoundException, IOException {
+        Billing dbBilling = findBillingById(id);
+
+        dbBilling.merge(billing);
+
+        return billigRepo.save(dbBilling);
+    }
+
+    public List<Billing> insertAll(List<Billing> billing) throws PostNotFoundException, IOException {
+        return billigRepo.insert(billing);
     }
 
 }

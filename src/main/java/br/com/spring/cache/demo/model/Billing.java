@@ -2,11 +2,7 @@ package br.com.spring.cache.demo.model;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.MongoId;
-import org.springframework.data.redis.core.RedisHash;
-
 import java.io.Serializable;
 
 
@@ -62,5 +58,15 @@ public class Billing implements Serializable {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public void merge(Billing source) {
+        if(source.getValue() != null) {
+            this.value = source.getValue();
+        }
+
+        if(source.getDescription() != null) {
+            this.description = source.getDescription();
+        }
     }
 }
