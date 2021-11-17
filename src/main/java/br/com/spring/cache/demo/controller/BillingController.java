@@ -62,4 +62,13 @@ public class BillingController {
         }else
             throw new  BillingNotFoundException("Billings with id "+id+" not found in database for delete");
     }
+
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE )
+    public CustomResponseEntity insertBilling(@RequestBody Billing billing) throws BillingNotFoundException {
+        if(billing != null) {
+            billingService.insertBilling(billing);
+            return new CustomResponseEntity<>(billing, HttpStatus.OK );
+        }else
+            throw new  BillingNotFoundException("Billings could't insert on databse");
+    }
 }

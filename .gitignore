@@ -38,4 +38,7 @@ hs_err_pid*
 
 
 #docker mongodb data ignore
-data/*
+data/
+
+#mvn files ignore
+.mvn/wrapper

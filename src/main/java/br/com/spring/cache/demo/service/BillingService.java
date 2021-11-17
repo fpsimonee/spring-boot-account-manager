@@ -27,4 +27,8 @@ public class BillingService {
        billigRepo.deleteById(id);
     }
 
+    public Billing insertBilling(Billing billing) throws BillingNotFoundException {
+        return billigRepo.save(billing);
+    }
+
 }
