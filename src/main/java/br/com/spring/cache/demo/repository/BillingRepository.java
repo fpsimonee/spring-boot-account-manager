@@ -18,8 +18,4 @@ public interface BillingRepository extends MongoRepository<Billing, String> {
 
     @Query("{id:'?0'}")
     Billing update(String id);
-
-    @Query("{id:'?0'}")
-    Billing insert(Billing doc);
-
 }

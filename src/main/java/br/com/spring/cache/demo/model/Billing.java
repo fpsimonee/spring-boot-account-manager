@@ -11,12 +11,9 @@ import java.io.Serializable;
 @Document(collection = "billings")
 public class Billing implements Serializable {
 
-
-
-
-
     @Id
     private ObjectId _id;
+    
     private String id;
 
     private String value;
@@ -33,7 +30,7 @@ public class Billing implements Serializable {
     public ObjectId get_Id() {
         return _id;
     }
-
+    
     public String getId() {
         return id;
     }

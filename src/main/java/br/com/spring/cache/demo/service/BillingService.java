@@ -15,8 +15,8 @@ public class BillingService {
 
     @Autowired
     BillingRepository billigRepo;
-
-
+    
+    
     public Billing findBillingById(String id) throws PostNotFoundException, IOException {
         return billigRepo.findBillingById(id);
     }
@@ -28,5 +28,9 @@ public class BillingService {
     public void deleteBillingById(String id) throws PostNotFoundException, IOException {
        billigRepo.deleteById(id);
     }
+    
+    public Billing insertBilling(Billing billing) throws PostNotFoundException, IOException {
+        return billigRepo.save(billing);
+     }
 
 }

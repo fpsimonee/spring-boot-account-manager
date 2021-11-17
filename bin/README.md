@@ -16,4 +16,4 @@ docker-compose up
 
 * after this you run this project on your ide and can see a documentation on:
 
-http://localhost:8080/swagger-ui/#/
+http://localhost:8080/swagger-ui
