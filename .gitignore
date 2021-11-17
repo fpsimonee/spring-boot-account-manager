@@ -8,7 +8,7 @@
 *.ctxt
 
 # Maven
-target/
+target/*
 
 # IntelliJ project files
 *.iml
@@ -38,4 +38,4 @@ hs_err_pid*
 
 
 #docker mongodb data ignore
-data/
+data/*
