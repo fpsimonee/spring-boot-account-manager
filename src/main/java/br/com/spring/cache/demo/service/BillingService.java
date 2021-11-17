@@ -4,7 +4,6 @@ import br.com.spring.cache.demo.exception.PostNotFoundException;
 import br.com.spring.cache.demo.model.Billing;
 import br.com.spring.cache.demo.repository.BillingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -29,7 +28,19 @@ public class BillingService {
        billigRepo.deleteById(id);
     }
 
+    public Billing update(String id, Billing billing) throws PostNotFoundException, IOException {
+        Billing dbBilling = findBillingById(id);
+
+        dbBilling.merge(billing);
+
+        return billigRepo.save(dbBilling);
+    }
+
     public Billing insertBilling(Billing billing) throws PostNotFoundException, IOException {
-        return billigRepo.save(billing);
-     }
+        return billigRepo.insert(billing);
+    }
+
+    public List<Billing> insertAll(List<Billing> billing) throws PostNotFoundException, IOException {
+        return billigRepo.insert(billing);
+    }
 }
