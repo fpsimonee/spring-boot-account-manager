@@ -4,6 +4,7 @@ import br.com.spring.cache.demo.exception.BillingNotFoundException;
 import br.com.spring.cache.demo.model.Billing;
 import br.com.spring.cache.demo.repository.BillingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public class BillingService {
     BillingRepository billigRepo;
 
 
+    @Cacheable("billingCache")
     public Billing findBillingById(String id) throws BillingNotFoundException {
         return billigRepo.findBillingById(id);
     }
@@ -32,7 +34,7 @@ public class BillingService {
         return billigRepo.save(billing);
     }
   
-    public Billing update(String id, Billing billing) throws PostNotFoundException, IOException {
+    public Billing update(String id, Billing billing) throws BillingNotFoundException {
         Billing dbBilling = findBillingById(id);
 
         dbBilling.merge(billing);
@@ -40,7 +42,7 @@ public class BillingService {
         return billigRepo.save(dbBilling);
     }
 
-    public List<Billing> insertAll(List<Billing> billing) throws PostNotFoundException, IOException {
+    public List<Billing> insertAll(List<Billing> billing) throws BillingNotFoundException {
         return billigRepo.insert(billing);
     }
 

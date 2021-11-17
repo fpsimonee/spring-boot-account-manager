@@ -9,8 +9,8 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 
 @SpringBootApplication
-@EnableCaching
 @EnableMongoRepositories(basePackageClasses = BillingRepository.class)
+@EnableCaching
 public class AccountManagerApplication {
 
 	@Autowired

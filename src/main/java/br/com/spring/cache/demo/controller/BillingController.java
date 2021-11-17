@@ -19,7 +19,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/v1/billing")
-@EnableCaching
 public class BillingController {
 
     private static final Logger log = LoggerFactory.getLogger(BillingController.class);
@@ -38,7 +37,7 @@ public class BillingController {
     }
 
     @GetMapping(value = "/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
-    @CachePut(value = "body", key = "#id")
+//    @CachePut(value = "body", key = "#id")
     public CustomResponseEntity<Billing> getPostById(@PathVariable String id) throws BillingNotFoundException {
         Billing getRequest = billingService.findBillingById(id);
 
@@ -51,7 +50,7 @@ public class BillingController {
     }
 
     @DeleteMapping("/{id}")
-    @CacheEvict(value = "body", key = "#id")
+//    @CacheEvict(value = "body", key = "#id")
     public CustomResponseEntity deleteById(@PathVariable String id) throws BillingNotFoundException{
         Billing find = billingService.findBillingById(id);
 
@@ -72,18 +71,13 @@ public class BillingController {
     }
 
     @PatchMapping("/{id}")
-    public Billing update(@PathVariable String id, @RequestBody Billing billing) throws PostNotFoundException, IOException{
+    public Billing update(@PathVariable String id, @RequestBody Billing billing) throws BillingNotFoundException{
         return billingService.update(id, billing);
     }
 
     @PostMapping()
-    public List<Billing> insertBillings(@RequestBody List<Billing> billing) throws PostNotFoundException, IOException {
+    public List<Billing> insertBillings(@RequestBody List<Billing> billing) throws BillingNotFoundException {
         return billingService.insertAll(billing);
-    }
-    
-    @PostMapping("/insert")
-    public Billing insertBilling(@RequestBody Billing billing) throws PostNotFoundException, IOException {
-        return billingService.insertBilling(billing);
     }
     
 }

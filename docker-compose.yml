@@ -21,7 +21,12 @@ services:
     ports:
       - '27017:27017'
     volumes:
-      - ./data/:/data/db
+      - './initial_scripts/initialdb.sh:/docker-entrypoint-initdb.d/initialdb.sh'
+
+  memcached:
+    image: bitnami/memcached:latest
+    ports:
+      - '11211:11211'
 
 volumes:
   redis_data:
