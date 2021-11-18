@@ -19,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/v1/billing")
+@EnableCaching
 public class BillingController {
 
     private static final Logger log = LoggerFactory.getLogger(BillingController.class);
@@ -35,6 +36,7 @@ public class BillingController {
         else
             throw new BillingNotFoundException("Billings not Found in database");
     }
+
 
     @GetMapping(value = "/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
 //    @CachePut(value = "body", key = "#id")
@@ -69,15 +71,4 @@ public class BillingController {
         }else
             throw new  BillingNotFoundException("Billings could't insert on databse");
     }
-
-    @PatchMapping("/{id}")
-    public Billing update(@PathVariable String id, @RequestBody Billing billing) throws BillingNotFoundException{
-        return billingService.update(id, billing);
-    }
-
-    @PostMapping()
-    public List<Billing> insertBillings(@RequestBody List<Billing> billing) throws BillingNotFoundException {
-        return billingService.insertAll(billing);
-    }
-    
 }

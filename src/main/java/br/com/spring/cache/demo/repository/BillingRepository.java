@@ -20,4 +20,10 @@ public interface BillingRepository extends MongoRepository<Billing, String> {
     @DeleteQuery("{id:'?0'}")
     void deleteById(String id);
 
+    @Query("{id:'?0'}")
+    Billing update(String id);
+
+    @Query("{id:'?0'}")
+    Billing insert(Billing doc);
+
 }

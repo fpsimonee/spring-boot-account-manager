@@ -42,6 +42,3 @@ data/
 
 #mvn files ignore
 .mvn/wrapper
-
-#vscode
-.vscode

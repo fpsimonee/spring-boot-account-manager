@@ -1,17 +1,17 @@
 version: '3.9'
 
 services:
-  redis:
-    image: docker.io/bitnami/redis:6.2
-    environment:
-      # ALLOW_EMPTY_PASSWORD is recommended only for development.
-      - ALLOW_EMPTY_PASSWORD=yes
-      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
-      - REDIS_AOF_ENABLED=no
-    ports:
-      - '6379:6379'
-    volumes:
-      - 'redis_data:/bitnami/redis/data'
+#  redis:
+#    image: docker.io/bitnami/redis:6.2
+#    environment:
+#      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+#      - ALLOW_EMPTY_PASSWORD=yes
+#      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+#      - REDIS_AOF_ENABLED=no
+#    ports:
+#      - '6379:6379'
+#    volumes:
+#      - 'redis_data:/bitnami/redis/data'
 
   mongo-db:
     image: mongo:latest
@@ -22,12 +22,25 @@ services:
       - '27017:27017'
     volumes:
       - './initial_scripts/initialdb.sh:/docker-entrypoint-initdb.d/initialdb.sh'
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 512M
 
   memcached:
     image: bitnami/memcached:latest
     ports:
       - '11211:11211'
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 512M
 
 volumes:
   redis_data:
     driver: local
+

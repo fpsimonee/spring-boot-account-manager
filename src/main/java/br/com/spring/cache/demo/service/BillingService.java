@@ -16,7 +16,7 @@ public class BillingService {
     BillingRepository billigRepo;
 
 
-    @Cacheable("billingCache")
+    @Cacheable(key = "#id", value = "Billing")
     public Billing findBillingById(String id) throws BillingNotFoundException {
         return billigRepo.findBillingById(id);
     }
@@ -29,21 +29,8 @@ public class BillingService {
        billigRepo.deleteById(id);
     }
 
-
     public Billing insertBilling(Billing billing) throws BillingNotFoundException {
         return billigRepo.save(billing);
-    }
-  
-    public Billing update(String id, Billing billing) throws BillingNotFoundException {
-        Billing dbBilling = findBillingById(id);
-
-        dbBilling.merge(billing);
-
-        return billigRepo.save(dbBilling);
-    }
-
-    public List<Billing> insertAll(List<Billing> billing) throws BillingNotFoundException {
-        return billigRepo.insert(billing);
     }
 
 }
