@@ -1,0 +1,103 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-boot-account-manager
+  labels:
+    app: spring-boot-account-manager
+spec:
+  ports:
+    - port: 8080
+      name: web
+  type: ClusterIP
+  selector:
+    run: spring-boot-account-manager
+
+---
+
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+    kubernetes.io/ingress.class: spring-boot-account-manager
+spec:
+  rules:
+    - host: spring-boot-account-manager
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: spring-boot-account-manager
+              servicePort: 8080
+    - host: spring-boot-account-manager
+      http:
+        paths:
+          - path: /api/
+            backend:
+              serviceName: spring-boot-account-manager
+              servicePort: 8080
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-account-manager
+  hostname:
+  labels:
+    app: spring-boot-account-manager
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-boot-account-manager
+  template:
+    metadata:
+      labels:
+        app: spring-boot-account-manager
+    spec:
+      hostname: spring-boot-account-manager
+      containers:
+        - name: spring-boot-account-manager
+          image: test/spring-image:1.0
+          ports:
+            - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: memcached
+  labels:
+    app: memcached
+spec:
+  ports:
+    - port: 11211
+      protocol: TCP
+  selector:
+    run: memcached
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: memcached
+  hostname:
+  labels:
+    app: memcached
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: memcached
+  template:
+    metadata:
+      labels:
+        app: memcached
+    spec:
+      hostname: memcached
+      containers:
+        - name: memcached
+          image: bitnami/memcached:latest
+          ports:
+            - containerPort: 11211

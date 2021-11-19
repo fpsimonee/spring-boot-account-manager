@@ -39,7 +39,6 @@ public class BillingController {
 
 
     @GetMapping(value = "/{id}", produces=MediaType.APPLICATION_JSON_VALUE)
-//    @CachePut(value = "body", key = "#id")
     public CustomResponseEntity<Billing> getPostById(@PathVariable String id) throws BillingNotFoundException {
         Billing getRequest = billingService.findBillingById(id);
 
@@ -52,7 +51,7 @@ public class BillingController {
     }
 
     @DeleteMapping("/{id}")
-//    @CacheEvict(value = "body", key = "#id")
+    @CacheEvict(value = "body", key = "#id")
     public CustomResponseEntity deleteById(@PathVariable String id) throws BillingNotFoundException{
         Billing find = billingService.findBillingById(id);
 
